@@ -34,15 +34,15 @@
       const addRow = function(v1, v2, v3) {
 
         let table = document.getElementById("tbl1").getElementsByTagName('tbody')[0];
-        let row = table.insertRow(table.tbody);
+        let row = table.insertRow(table.tbody); //build a new row
 
-        let curr = row.insertCell(0);
+        let curr = row.insertCell(0); //add cells to the row
         let first = row.insertCell(1);
         let second = row.insertCell(2);
         let third = row.insertCell(3);
 
-        curr.innerHTML = (document.getElementById('tbl1').getElementsByTagName('tbody')[0].getElementsByTagName('tr').length);
-        first.innerHTML = v1;
+        curr.innerHTML = (document.getElementById('tbl1').getElementsByTagName('tbody')[0].getElementsByTagName('tr').length); //add a cell for the # column
+        first.innerHTML = v1; //add our parameters to be the values inside the cells we add
         second.innerHTML = v2;
         third.innerHTML = v3;
       }
@@ -77,10 +77,10 @@
         let table = document.getElementById("tbl1");
         for(let i = 1; i < 4; i++){ //i is columns
           for(let j = 1; j < (table.getElementsByTagName('tbody')[0].getElementsByTagName('tr').length + 1); j++){ //j is rows
-            total = total + Number(table.rows[j].cells[i].innerHTML);
+            total = total + Number(table.rows[j].cells[i].innerHTML); //add up total of the column
           }
-          table.rows[table.rows.length - 1].cells[i].innerHTML = total;
-          total = 0;
+          table.rows[table.rows.length - 1].cells[i].innerHTML = total; //set the total cell to be the calculated value
+          total = 0; // reset total before going to next column
         }
 
       }
@@ -92,8 +92,8 @@
         let table = document.getElementById("tbl1");
         for(let i = 0; i < 4; i++){ //i is columns
           for(let j = 0; j < (table.getElementsByTagName('tbody')[0].getElementsByTagName('tr').length + 1); j++){ //j is rows
-              if(fn(Number(table.rows[j].cells[i].innerHTML))){ //make every even row gray
-                table.rows[j].cells[i].style.backgroundColor = "yellow";
+              if(fn(Number(table.rows[j].cells[i].innerHTML))){ //check if current cell satisfies function
+                table.rows[j].cells[i].style.backgroundColor = "yellow"; //if it does, highlight it
               }
           }
         }
