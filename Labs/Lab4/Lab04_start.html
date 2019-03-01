@@ -1,0 +1,133 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Lab04</title>
+    <style>
+      table {
+        /* format table border */
+        border: 1px solid gray;
+        border-collapse: collapse;
+
+        /* format table-wide font */
+        font-family: verdana;
+
+        /* Center table on page */
+        margin-left: auto;
+        margin-right: auto;
+      }
+      th {
+        width: 100px;
+        background-color: gray;
+        color: white;
+      }
+      td {
+        text-align: center;
+      }
+      .total {
+        border-top: 1px solid gray;
+        font-weight: bold;
+      }
+    </style>
+    <script type="text/javascript">
+
+      const addRow = function(v1, v2, v3) {
+
+        let table = document.getElementById("tbl1").getElementsByTagName('tbody')[0];
+        let row = table.insertRow(table.tbody);
+
+        let curr = row.insertCell(0);
+        let first = row.insertCell(1);
+        let second = row.insertCell(2);
+        let third = row.insertCell(3);
+
+        curr.innerHTML = (document.getElementById('tbl1').getElementsByTagName('tbody')[0].getElementsByTagName('tr').length);
+        first.innerHTML = v1;
+        second.innerHTML = v2;
+        third.innerHTML = v3;
+      }
+
+      // Delete the row number nrow
+      const deleteRow = function(nrow) {
+
+        let table = document.getElementById("tbl1");
+        table.deleteRow(nrow + 1); //delete nth row
+
+        for(let i = 1; i < 4; i++){ //update # column to display proper numbers
+          table.rows[i].cells[0].innerHTML--;
+        }
+      }
+
+      // Sequentially renumber first column
+      // and restripe alternate row background colors
+      const reformat = function() {
+        let table = document.getElementById("tbl1");
+        for(let i = 0; i < 4; i++){ //i is columns
+          for(let j = 0; j < (table.getElementsByTagName('tbody')[0].getElementsByTagName('tr').length + 1); j++){ //j is rows
+              if(j % 2 === 0){ //make every even row gray
+                table.rows[j].cells[i].style.backgroundColor = "gray";
+              }
+          }
+        }
+      }
+
+      // Sum values in all columns and update totals in tfoot tr
+      const updateTotals = function() {
+        let total = 0;
+        let table = document.getElementById("tbl1");
+        for(let i = 1; i < 4; i++){ //i is columns
+          for(let j = 1; j < (table.getElementsByTagName('tbody')[0].getElementsByTagName('tr').length + 1); j++){ //j is rows
+            total = total + Number(table.rows[j].cells[i].innerHTML);
+          }
+          table.rows[table.rows.length - 1].cells[i].innerHTML = total;
+          total = 0;
+        }
+
+      }
+
+      // Highlight all cells identified by fn
+      // Ex. highlight( x => (x > 5) && (x < 10) );
+      // Ex. highlight( x => x % 2 === 0 );
+      const highlight = function( fn ) {
+
+      }
+
+    </script>
+  </head>
+  <body>
+    <table id="tbl1">
+      <thead>
+        <tr><th>#</th><th>A</th><th>B</th><th>C</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>1</td><td>1</td><td>2</td><td>3</td></tr>
+        <tr><td>2</td><td>4</td><td>5</td><td>6</td></tr>
+        <tr><td>3</td><td>7</td><td>8</td><td>9</td></tr>
+        <tr><td>4</td><td>10</td><td>11</td><td>12</td></tr>
+      </tbody>
+      <tfoot>
+        <tr class="total"><td>Total:</td><td>0</td><td>0</td><td>0</td></tr>
+      </tfoot>
+    </table>
+
+    <script type="text/javascript">
+      // Delete the first row
+      //deleteRow(0);
+
+      // Add two more rows
+      //addRow(4, 5, 6);
+      //addRow(7, 8, 9);
+
+      // Reformat table
+      //reformat();
+
+      // Update totals
+      //updateTotals();
+
+      // Highlight all cells matching criterion
+      //highlight( x => (x > 5) && (x < 10) );
+      //highlight( x => x % 2 === 0 );
+
+    </script>
+  </body>
+</html>
