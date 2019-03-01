@@ -89,7 +89,14 @@
       // Ex. highlight( x => (x > 5) && (x < 10) );
       // Ex. highlight( x => x % 2 === 0 );
       const highlight = function( fn ) {
-
+        let table = document.getElementById("tbl1");
+        for(let i = 0; i < 4; i++){ //i is columns
+          for(let j = 0; j < (table.getElementsByTagName('tbody')[0].getElementsByTagName('tr').length + 1); j++){ //j is rows
+              if(fn(Number(table.rows[j].cells[i].innerHTML))){ //make every even row gray
+                table.rows[j].cells[i].style.backgroundColor = "yellow";
+              }
+          }
+        }
       }
 
     </script>
