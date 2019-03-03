@@ -1,5 +1,5 @@
 <!--
-File Name: Lab4
+File Name: Lab4_start.html
 Student Name: Zach Warcola
 Description: Lab to use javascript to manipulate HTML tables.
 -->
@@ -47,8 +47,6 @@ Description: Lab to use javascript to manipulate HTML tables.
         let second = row.insertCell(2);
         let third = row.insertCell(3);
 
-        //curr.innerHTML = (document.getElementById('tbl1').getElementsByTagName('tbody')[0].getElementsByTagName('tr').length); //add a cell for the # column
-        //uncomment above line to add #'s to # column
         first.innerHTML = v1; //add our parameters to be the values inside the cells we add
         second.innerHTML = v2;
         third.innerHTML = v3;
@@ -70,10 +68,12 @@ Description: Lab to use javascript to manipulate HTML tables.
       const reformat = function() {
         let table = document.getElementById("tbl1");
         for(let i = 0; i < 4; i++){ //i is columns
+
           for(let j = 0; j < (table.getElementsByTagName('tbody')[0].getElementsByTagName('tr').length + 1); j++){ //j is rows
               if(j % 2 === 0){ //make every even row gray
                 table.rows[j].cells[i].style.backgroundColor = "gray";
               }
+              table.rows[j].cells[0].innerHTML = j; //update # column
           }
         }
       }
