@@ -70,6 +70,7 @@ Description: Lab to use javascript to manipulate HTML tables.
         for(let i = 0; i < 4; i++){ //i is columns
 
           for(let j = 0; j < (table.getElementsByTagName('tbody')[0].getElementsByTagName('tr').length + 1); j++){ //j is rows
+              table.rows[j].cells[i].style.backgroundColor = "white"; //reset to white to ensure proper color
               if(j % 2 === 0){ //make every even row gray
                 table.rows[j].cells[i].style.backgroundColor = "gray";
               }
