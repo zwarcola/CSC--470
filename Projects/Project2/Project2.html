@@ -1,0 +1,59 @@
+<!--
+File Name: Project2.html
+Student Name: Zach Warcola
+Description: Project to create a color matching gaming with event handling
+-->
+
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Project2</title>
+    <style>
+      .grid {
+        display: grid;
+        grid-template-columns: 50px 50px 50px 50px 50px 50px 50px 50px 50px 50px;
+        grid-template-rows: 50px 50px 50px 50px 50px 50px 50px 50px 50px 50px;
+        grid-gap: 3px;
+        color: #444;
+      }
+      .cell {
+        background-color: #444;
+        padding: 5px;
+      }
+    </style>
+  </head>
+
+  <body>
+
+    <div id = "game" class = grid> <!--  This will be our game base -->
+    </div>
+
+    <script type="text/javascript">
+
+      var colorsList = ["red", "orange", "yellow", "green", "blue"]; //array of strings containing possible colors
+
+      var cellColors = [];
+      for(let i = 0; i < 100; i++){ //make an array holding underlying cell colors
+        cellColors[i] = colorsList[Math.floor(Math.random() * 5)]; //colors in array are randomly selected
+      }
+
+      let firstClick = function(div){ //function to handle mouse click event
+        div.target.style.backgroundColor = 'blue';// cellColors[];
+      }
+
+      for(let i = 0; i < 100; i++){ //build each cell in the grid
+        let div = document.createElement('div');
+        div.setAttribute('class', 'cell');
+        document.getElementById('game').appendChild(div);
+      }
+
+      let curr = document.getElementById("game"); //add event listeners to each cell
+      for(let i = 0; i < 100; i++){
+        curr.children[i].addEventListener('mouseup', firstClick);
+      }
+
+    </script>
+
+  </body>
+</html>
