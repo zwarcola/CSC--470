@@ -14,8 +14,7 @@ Description: Project to create a color matching gaming with event handling
         display: grid;
         grid-template-columns: 50px 50px 50px 50px 50px 50px 50px 50px 50px 50px;
         grid-template-rows: 50px 50px 50px 50px 50px 50px 50px 50px 50px 50px;
-        grid-gap: 3px;
-        color: #444;
+        grid-gap: 2px;
       }
       .cell {
         background-color: #444;
@@ -32,14 +31,24 @@ Description: Project to create a color matching gaming with event handling
     <script type="text/javascript">
 
       var colorsList = ["red", "orange", "yellow", "green", "blue"]; //array of strings containing possible colors
-
       var cellColors = [];
+      var matchArray = [false, false];
+
       for(let i = 0; i < 100; i++){ //make an array holding underlying cell colors
         cellColors[i] = colorsList[Math.floor(Math.random() * 5)]; //colors in array are randomly selected
       }
 
-      let firstClick = function(div){ //function to handle mouse click event
-        div.target.style.backgroundColor = div.target.underColor;// cellColors[];
+      let firstClick = function(clickEvent){ //function to handle mouse click event
+
+        clickEvent.target.style.backgroundColor = clickEvent.target.underColor;// cellColors[];
+
+
+        let returnToGrey = function(){ //function to return color to grey after 1s
+          clickEvent.target.style.backgroundColor = '#444';
+        }
+
+        let timer = setTimeout(returnToGrey, 1000); //after 1s, call returnToGrey()
+
       }
 
       for(let i = 0; i < 100; i++){ //build each cell in the grid
