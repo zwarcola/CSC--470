@@ -47,7 +47,9 @@ Description: Project to create a color matching gaming with event handling
           return;
         }
         else if(cellsInScope[0] !== null){ //if one cell is open, append to second location
-
+          if(cellsInScope[0] === clickEvent.target){
+            return;
+          }
           cellsInScope[1] = clickEvent.target;
           clickEvent.target.style.backgroundColor = clickEvent.target.underColor; //reveal background color
 
