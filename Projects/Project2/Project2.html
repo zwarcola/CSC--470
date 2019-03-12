@@ -29,65 +29,67 @@ Description: Project to create a color matching gaming with event handling
     </div>
 
     <script type="text/javascript">
+      let colorGame = (function(){ //iife function to hold our code
+          var colorsList = ["red", "orange", "yellow", "green", "blue"]; //array of strings containing possible colors
+          var cellColors = [];
+          var cellsInScope = [null, null]; //two cell array that keeps track of eventListeners
+          var matchCounter = 0; //counter to signal a win
 
-      var colorsList = ["red", "orange", "yellow", "green", "blue"]; //array of strings containing possible colors
-      var cellColors = [];
-      var cellsInScope = [null, null]; //two cell array that keeps track of eventListeners
-      var matchCounter = 0; //counter to signal a win
-
-      for(let i = 0; i < 100; i++){ //make an array holding underlying cell colors
-        cellColors[i] = colorsList[Math.floor(Math.random() * 5)]; //colors in array are randomly selected
-      }
-
-      let firstClick = function(clickEvent){ //function to handle mouse click event
-
-        if(cellsInScope[0] === null){ //if no cells are open, append to first location in cellsInScope
-          cellsInScope[0] = clickEvent.target;
-          clickEvent.target.style.backgroundColor = clickEvent.target.underColor; //reveal background color
-          return;
-        }
-        else if(cellsInScope[0] !== null){ //if one cell is open, append to second location
-          if(cellsInScope[0] === clickEvent.target){
-            return;
+          for(let i = 0; i < 100; i++){ //make an array holding underlying cell colors
+            cellColors[i] = colorsList[Math.floor(Math.random() * 5)]; //colors in array are randomly selected
           }
-          cellsInScope[1] = clickEvent.target;
-          clickEvent.target.style.backgroundColor = clickEvent.target.underColor; //reveal background color
 
-          if(cellsInScope[0].style.backgroundColor === cellsInScope[1].style.backgroundColor){
-            cellsInScope[0].removeEventListener('mouseup', firstClick);
-            cellsInScope[1].removeEventListener('mouseup', firstClick);
-            cellsInScope = [null, null];
-            matchCounter++;
+          let firstClick = function(clickEvent){ //function to handle mouse click event
 
-            if(matchCounter === 50){ //if there are 50 matches the board is revealed and the player wins
-              alert('you win!');
+            if(cellsInScope[0] === null){ //if no cells are open, append to first location in cellsInScope
+              cellsInScope[0] = clickEvent.target;
+              clickEvent.target.style.backgroundColor = clickEvent.target.underColor; //reveal background color
+              return;
             }
-          }
-          else{
-            let returnToGrey = function(){ //function to return colors to grey and reset cellsInScope
-              cellsInScope[0].style.backgroundColor = '#444';
-              cellsInScope[1].style.backgroundColor = '#444';
-              cellsInScope = [null, null];
+            else if(cellsInScope[0] !== null){ //if one cell is open, append to second location
+              if(cellsInScope[0] === clickEvent.target){
+                return;
+              }
+              cellsInScope[1] = clickEvent.target;
+              clickEvent.target.style.backgroundColor = clickEvent.target.underColor; //reveal background color
+
+              if(cellsInScope[0].style.backgroundColor === cellsInScope[1].style.backgroundColor){
+                cellsInScope[0].removeEventListener('mouseup', firstClick);
+                cellsInScope[1].removeEventListener('mouseup', firstClick);
+                cellsInScope = [null, null];
+                matchCounter++;
+
+                if(matchCounter === 50){ //if there are 50 matches the board is revealed and the player wins
+                  alert('you win!');
+                }
+              }
+              else{
+                let returnToGrey = function(){ //function to return colors to grey and reset cellsInScope
+                  cellsInScope[0].style.backgroundColor = '#444';
+                  cellsInScope[1].style.backgroundColor = '#444';
+                  cellsInScope = [null, null];
+                }
+
+                let timer = setTimeout(returnToGrey, 1000); //after 1s, call returnToGrey()
+              }
             }
 
-            let timer = setTimeout(returnToGrey, 1000); //after 1s, call returnToGrey()
           }
-        }
 
-      }
+          for(let i = 0; i < 100; i++){ //build each cell in the grid
+            let div = document.createElement('div');
+            div.setAttribute('class', 'cell');
+            document.getElementById('game').appendChild(div);
+          }
 
-      for(let i = 0; i < 100; i++){ //build each cell in the grid
-        let div = document.createElement('div');
-        div.setAttribute('class', 'cell');
-        document.getElementById('game').appendChild(div);
-      }
+          let curr = document.getElementById("game"); //add event listeners and underlying properties to each cell
+          for(let i = 0; i < 100; i++){
+            curr.children[i].addEventListener('mouseup', firstClick);
+            curr.children[i].hasOwnProperty('underColor');
+            curr.children[i].underColor = cellColors[i];
+          }
 
-      let curr = document.getElementById("game"); //add event listeners and underlying properties to each cell
-      for(let i = 0; i < 100; i++){
-        curr.children[i].addEventListener('mouseup', firstClick);
-        curr.children[i].hasOwnProperty('underColor');
-        curr.children[i].underColor = cellColors[i];
-      }
+      })();
 
     </script>
 
