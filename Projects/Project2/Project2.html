@@ -53,7 +53,7 @@ Description: Project to create a color matching gaming with event handling
               cellsInScope[1] = clickEvent.target;
               clickEvent.target.style.backgroundColor = clickEvent.target.underColor; //reveal background color
 
-              if(cellsInScope[0].style.backgroundColor === cellsInScope[1].style.backgroundColor){
+              if(cellsInScope[0].style.backgroundColor === cellsInScope[1].style.backgroundColor){ //MAYBE MAKE THIS UNDERCOLOR??
                 cellsInScope[0].removeEventListener('mouseup', firstClick);
                 cellsInScope[1].removeEventListener('mouseup', firstClick);
                 cellsInScope = [null, null];
