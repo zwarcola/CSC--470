@@ -32,8 +32,8 @@ Description: Project to create a color matching gaming with event handling
 
       var colorsList = ["red", "orange", "yellow", "green", "blue"]; //array of strings containing possible colors
       var cellColors = [];
-      var cellsInScope = [null, null];
-      var matchCounter = 0;
+      var cellsInScope = [null, null]; //two cell array that keeps track of eventListeners
+      var matchCounter = 0; //counter to signal a win
 
       for(let i = 0; i < 100; i++){ //make an array holding underlying cell colors
         cellColors[i] = colorsList[Math.floor(Math.random() * 5)]; //colors in array are randomly selected
@@ -64,7 +64,7 @@ Description: Project to create a color matching gaming with event handling
             }
           }
           else{
-            let returnToGrey = function(){ //function to return color to grey after 1s and reset cellsInScope
+            let returnToGrey = function(){ //function to return colors to grey and reset cellsInScope
               cellsInScope[0].style.backgroundColor = '#444';
               cellsInScope[1].style.backgroundColor = '#444';
               cellsInScope = [null, null];
@@ -73,7 +73,6 @@ Description: Project to create a color matching gaming with event handling
             let timer = setTimeout(returnToGrey, 1000); //after 1s, call returnToGrey()
           }
         }
-
 
       }
 
