@@ -99,7 +99,15 @@ Description: Project to create a color matching gaming with event handling
                 let timer = setTimeout(returnToGrey, 1000); //after 1s, call returnToGrey()
               }
             }
-            else{ //this will return when the user tries to click more than two cells
+            else if(cellsInScope[0] !== null && cellsInScope[1] !== null){ //this will return when the user tries to click more than two cells
+              // clearTimeout(timer);
+              // cellsInScope[0].style.backgroundColor = '#444';
+              // cellsInScope[1].style.backgroundColor = '#444';
+              // cellsInScope = [clickEvent.target, null];
+              // clickEvent.taget.style.backgroundColor = clickEvent.target.underColor;
+              return;
+            }
+            else{
               return;
             }
 
