@@ -122,7 +122,6 @@ Description: Project to create a color matching gaming with event handling
           let curr = document.getElementById("game"); //add event listeners and underlying properties to each cell
           for(let i = 0; i < 100; i++){
             curr.children[i].addEventListener('mouseup', firstClick);
-            curr.children[i].hasOwnProperty('underColor');
             curr.children[i].underColor = cellColors[i];
           }
 
