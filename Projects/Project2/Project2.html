@@ -29,15 +29,42 @@ Description: Project to create a color matching gaming with event handling
     </div>
 
     <script type="text/javascript">
+
       let colorGame = (function(){ //iife function to hold our code
-          let colorsList = ["red", "orange", "yellow", "green", "blue"]; //array of strings containing possible colors
+          //let colorsList = ["red", "orange", "yellow", "green", "blue"]; //array of strings containing possible colors
           let cellColors = [];
           let cellsInScope = [null, null]; //two cell array that keeps track of eventListeners
           let matchCounter = 0; //counter to signal a win
 
-          for(let i = 0; i < 100; i++){ //make an array holding underlying cell colors
-            cellColors[i] = colorsList[Math.floor(Math.random() * 5)]; //colors in array are randomly selected
+          for(let i = 0; i < 20; i++){ //make an array holding underlying cell colors to be shuffled
+            cellColors[i] = 'red';
           }
+          for(let i = 20; i < 40; i++){
+            cellColors[i] = 'orange';
+          }
+          for(let i = 40; i < 60; i++){
+            cellColors[i] = 'yellow';
+          }
+          for(let i = 60; i < 80; i++){
+            cellColors[i] = 'green';
+          }
+          for(let i = 80; i < 100; i++){
+            cellColors[i] = 'blue';
+          }
+
+          let shuffle = function(array) { //We will use the Fisher-Yates array shuffling algoritm to mix up our colors array
+            let j, x, i;
+            for (i = array.length - 1; i > 0; i--) {
+                j = Math.floor(Math.random() * (i + 1));
+                x = array[i];
+                array[i] = array[j];
+                array[j] = x;
+            }
+            return array;
+          }
+
+          cellColors = shuffle(cellColors); //shuffle the array
+
 
           let firstClick = function(clickEvent){ //function to handle mouse click event
 
