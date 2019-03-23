@@ -15,16 +15,23 @@ Description: Project to create a color matching gaming with event handling
         grid-template-columns: 50px 50px 50px 50px 50px 50px 50px 50px 50px 50px;
         grid-template-rows: 50px 50px 50px 50px 50px 50px 50px 50px 50px 50px;
         grid-gap: 2px;
+
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        -webkit-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
       }
       .cell {
         background-color: #444;
         padding: 5px;
       }
+
     </style>
   </head>
 
   <body>
-
+    <h1 align = "center"> Welcome to Zach Warcola's Color Matching Game! </h1>
     <div id = "game" class = grid align="center"> <!--  This will be our game base -->
     </div>
 
@@ -87,8 +94,9 @@ Description: Project to create a color matching gaming with event handling
                 matchCounter++;
 
                 if(matchCounter === 50){ //if there are 50 matches the board is revealed and the player wins
-                  alert('you win!');
+                  alert('You Win!');
                 }
+
               }
               else{
                 let returnToGrey = function(){ //function to return colors to grey and reset cellsInScope
