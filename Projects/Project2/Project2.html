@@ -25,7 +25,7 @@ Description: Project to create a color matching gaming with event handling
 
   <body>
 
-    <div id = "game" class = grid> <!--  This will be our game base -->
+    <div id = "game" class = grid align="center"> <!--  This will be our game base -->
     </div>
 
     <script type="text/javascript">
@@ -34,6 +34,7 @@ Description: Project to create a color matching gaming with event handling
           let cellColors = [];
           let cellsInScope = [null, null]; //two cell array that keeps track of eventListeners
           let matchCounter = 0; //counter to signal a win
+          var timer; //timer for set and clear timouts
 
           for(let i = 0; i < 20; i++){ //make an array holding underlying cell colors to be shuffled
             cellColors[i] = 'red';
@@ -96,18 +97,18 @@ Description: Project to create a color matching gaming with event handling
                   cellsInScope = [null, null];
                 }
 
-                let timer = setTimeout(returnToGrey, 1000); //after 1s, call returnToGrey()
+                timer = setTimeout(returnToGrey, 1000); //after 1s, call returnToGrey()
               }
             }
-            else if(cellsInScope[0] !== null && cellsInScope[1] !== null){ //this will return when the user tries to click more than two cells
-              // clearTimeout(timer);
-              // cellsInScope[0].style.backgroundColor = '#444';
-              // cellsInScope[1].style.backgroundColor = '#444';
-              // cellsInScope = [clickEvent.target, null];
-              // clickEvent.taget.style.backgroundColor = clickEvent.target.underColor;
-              return;
+            else if(cellsInScope[0] !== null && cellsInScope[1] !== null && cellsInScope[0] !== clickEvent.target && cellsInScope[1] !== clickEvent.target){ //this will return when the user tries to click more than two cells
+               clearTimeout(timer); //when the user clicks a new set of cells before the timer runs out, clear the timer
+               cellsInScope[0].style.backgroundColor = '#444'; //set both currently showing cells back to grey
+               cellsInScope[1].style.backgroundColor = '#444';
+               cellsInScope = [clickEvent.target, null]; //go back to the state with only 1 color showing
+               clickEvent.target.style.backgroundColor = clickEvent.target.underColor;
+               return;
             }
-            else{
+            else{ //when all else fails, do nothing
               return;
             }
 
@@ -122,7 +123,7 @@ Description: Project to create a color matching gaming with event handling
           let curr = document.getElementById("game"); //add event listeners and underlying properties to each cell
           for(let i = 0; i < 100; i++){
             curr.children[i].addEventListener('mouseup', firstClick);
-            curr.children[i].underColor = cellColors[i];
+            curr.children[i].underColor = cellColors[i]; //add property underColor
           }
 
       })();
