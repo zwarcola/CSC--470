@@ -47,7 +47,7 @@ Description: Lab to Practice modifying the DOM using the JavaScript Browser API.
           let green = document.getElementById("G");
           let blue = document.getElementById("B");
 
-          let updateColor = function(){ //function to update the background color and change Color text
+          let updateColor = function(ev){ //function to update the background color and change Color text
             document.getElementById('swatch').style.backgroundColor = 'rgb(' + red.value + ',' + green.value + ',' + blue.value + ')';
             document.getElementById('clr').innerHTML = "rgb(" + red.value + ", " + green.value + ", " + blue.value + ")";
           }
