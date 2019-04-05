@@ -1,0 +1,48 @@
+<!--
+File Name: Lab7.html
+Student Name: Zach Warcola
+Description: Project to explore use of the canvas element
+-->
+
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Lab7</title>
+  </head>
+
+  <canvas id="cvs" width="600"height="600" style="border:1px solid #000000;"> </canvas>
+
+  <body>
+      <script type="text/javascript">
+            let starBuilder = (function(){ //iife function to hold our code
+
+              const canvas = document.getElementById('cvs');
+              const ctx = canvas.getContext('2d');
+              let currPos;
+
+              let getMousePos = function(canvas, event){ //function to get and format current mouse position
+                let rect = canvas.getBoundingClientRect();
+                return{
+                  x: event.clientX - rect.left,
+                  y: event.clientY - rect.top
+                };
+              }
+
+              let drawStar = function(cx, cy, radius, npoints, ctx){ //function to draw the actual star
+
+              }
+
+              let buildStar = function(event){ //function to build and format the star
+                currPos = getMousePos(canvas, event); //get coordinates of click event
+
+              }
+
+              canvas.addEventListener('click', buildStar); //add event listener to canvas
+
+
+
+            })();
+      </script>
+  </body>
+</html>
