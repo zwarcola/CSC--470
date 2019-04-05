@@ -19,7 +19,6 @@ Description: Project to explore use of the canvas element
 
               const canvas = document.getElementById('cvs');
               const ctx = canvas.getContext('2d');
-              let currPos;
 
               let getMousePos = function(canvas, event){ //function to get and format current mouse position
                 let rect = canvas.getBoundingClientRect();
@@ -31,16 +30,32 @@ Description: Project to explore use of the canvas element
 
               let drawStar = function(cx, cy, radius, npoints, ctx){ //function to draw the actual star
 
+                //FIX THIS!!!!
+
+                let delta = 360/(2*npoints);
+                let theta = -90*(Math.PI/180);
+                ctx.beginPath();
+                ctx.moveTo(cx, cy);
+                for(let i = 0; i < (2*npoints); i++){
+                  theta += delta;
+                  if(i % 2 === 0){
+                    radius *= 0.5;
+                  }
+                  //(r, theta) to (x, y)
+                  let x = (radius*Math.cos(theta) + cx);
+                  let y = (radius*Math.sin(theta) + cy);
+                  ctx.lineTo(x, y);
+                }
+                ctx.closePath();
+
               }
 
-              let buildStar = function(event){ //function to build and format the star
-                currPos = getMousePos(canvas, event); //get coordinates of click event
-
-              }
-
-              canvas.addEventListener('click', buildStar); //add event listener to canvas
-
-
+              canvas.addEventListener('click',
+                                      function(event){
+                                        let currPos = getMousePos(canvas, event); //get coordinates of click event
+                                        drawStar(currPos.x, currPos.y, 5, 5, ctx);
+                                      }
+              ); //add event listener to canvas
 
             })();
       </script>
