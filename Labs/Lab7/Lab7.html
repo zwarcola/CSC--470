@@ -31,17 +31,22 @@ Description: Project to explore use of the canvas element
               let drawStar = function(cx, cy, radius, npoints, ctx){ //function to draw the actual star
 
                 let delta = 360/(2*npoints);
-                let theta = (-90)*(Math.PI/180);
+                let theta = (-90);
+                let r = radius;
+
                 ctx.beginPath();
-                ctx.moveTo(cx, cy);
+                ctx.moveTo(radius, theta);
                 for(let i = 0; i < (2*npoints); i++){
                   theta += delta;
                   if(i % 2 === 0){
-                    radius *= 0.5;
+                    r = radius * 0.5;
+                  }
+                  else{
+                    r = radius;
                   }
                   //(r, theta) to (x, y)
-                  let x = (radius*Math.cos(theta) + cx);
-                  let y = (radius*Math.sin(theta) + cy);
+                  let x = (r*Math.cos(theta*(Math.PI/180)) + cx);
+                  let y = (r*Math.sin(theta*(Math.PI/180)) + cy);
                   ctx.lineTo(x, y);
                 }
                 ctx.strokeStyle = '#000000';
