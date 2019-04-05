@@ -9,6 +9,9 @@ Description: Project to explore use of the canvas element
   <head>
     <meta charset="utf-8">
     <title>Lab7</title>
+      <div class="slidecontainer">
+        <input type="range" min="1" max="100" value="50" class="slider" id="myRange">
+      </div>
   </head>
 
   <canvas id="cvs" width="600"height="600" style="border:1px solid #000000;"> </canvas>
@@ -16,7 +19,6 @@ Description: Project to explore use of the canvas element
   <body>
       <script type="text/javascript">
             let starBuilder = (function(){ //iife function to hold our code
-
               const canvas = document.getElementById('cvs');
               const ctx = canvas.getContext('2d');
 
@@ -59,7 +61,7 @@ Description: Project to explore use of the canvas element
               canvas.addEventListener('click',
                                       function(event){
                                         let currPos = getMousePos(canvas, event); //get coordinates of click event
-                                        drawStar(currPos.x, currPos.y, 100, 5, ctx);
+                                        drawStar(currPos.x, currPos.y, 50, 5, ctx);
                                       }
               ); //add event listener to canvas
 
