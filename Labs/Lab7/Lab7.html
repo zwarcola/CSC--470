@@ -30,10 +30,8 @@ Description: Project to explore use of the canvas element
 
               let drawStar = function(cx, cy, radius, npoints, ctx){ //function to draw the actual star
 
-                //FIX THIS!!!!
-
                 let delta = 360/(2*npoints);
-                let theta = -90*(Math.PI/180);
+                let theta = (-90)*(Math.PI/180);
                 ctx.beginPath();
                 ctx.moveTo(cx, cy);
                 for(let i = 0; i < (2*npoints); i++){
@@ -46,14 +44,17 @@ Description: Project to explore use of the canvas element
                   let y = (radius*Math.sin(theta) + cy);
                   ctx.lineTo(x, y);
                 }
+                ctx.strokeStyle = '#000000';
+                ctx.stroke();
                 ctx.closePath();
+
 
               }
 
               canvas.addEventListener('click',
                                       function(event){
                                         let currPos = getMousePos(canvas, event); //get coordinates of click event
-                                        drawStar(currPos.x, currPos.y, 5, 5, ctx);
+                                        drawStar(currPos.x, currPos.y, 100, 5, ctx);
                                       }
               ); //add event listener to canvas
 
