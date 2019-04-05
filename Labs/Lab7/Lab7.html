@@ -35,7 +35,8 @@ Description: Project to explore use of the canvas element
                 let r = radius;
 
                 ctx.beginPath();
-                ctx.moveTo(radius, theta);
+                ctx.moveTo(cx, cy - radius);
+
                 for(let i = 0; i < (2*npoints); i++){
                   theta += delta;
                   if(i % 2 === 0){
@@ -52,7 +53,6 @@ Description: Project to explore use of the canvas element
                 ctx.strokeStyle = '#000000';
                 ctx.stroke();
                 ctx.closePath();
-
 
               }
 
