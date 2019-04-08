@@ -1,0 +1,133 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Hurricane Viewer</title>
+        <style>
+            #div1 {
+              border: 1px solid black;
+              width : 1275px;
+              margin: 0 auto;  /* center content horizontally */
+            }
+            #sel1 {
+                font-family: Arial;
+                font-size  : 24px;
+                position   : absolute;
+
+            }
+        </style>
+        <script type="text/javascript" src="hurricaneData.js"></script>
+    </head>
+    <body>
+        <div id="div1">
+            <select id="selector">
+                <option value="">(Select Hurricane)</option>
+                <option value="DEAN">Dean</option>
+                <option value="HARVEY">Harvey</option>
+                <option value="IRMA">Irma</option>
+                <option value="KATRINA">Katrina</option>
+                <option value="MARIA">Maria</option>
+                <option value="SANDY">Sandy</option>
+            </select>
+            <svg id="cvs" width="1275" height="825">
+                <image xlink:href="chart_1275x825.png" x=0 y=0 style="border: 1px solid black;"></image>
+            </svg>
+        </div>
+
+        <script type="text/javascript">
+
+            // Convert latitude-longitude to pixel coordinates
+            function ll2xy(latitude, longitude) {
+                let minx = 38;      // Minimum chart x-pixel coordinate
+                let maxx = 1237;    // Maximum chart x-pixel coordinate
+                let miny = 42;      // Minimum chart y-pixel coordinate
+                let maxy = 718;     // Maximum chart y-pixel coordinate
+
+                // Chart latitude and longitude extents
+                let minlon = 22;    // Minimum chart longitude
+                let maxlon = 99;    // Maximum chart longitude
+                let minlat = 7;     // Minimum chart latitude
+                let maxlat = 45;    // Maximum chart latitude
+
+                // Convert latitude and longitude to pixel coordinates
+                let x = (maxlon-longitude)/(maxlon-minlon) * (maxx-minx) + minx;
+                let y = (maxlat-latitude)/(maxlat-minlat) * (maxy-miny) + miny;
+
+                // Return coodinates as an object
+                return {x:x, y:y};
+            }
+
+            let changeHurr = function(event){ //function to detect a change in the selected hurricane
+              currHurr = event.target.value; //here the event target is the selector object, the value is the hurricane name
+              if(currHurr !== 'KATRINA' && currHurr !== 'DEAN' && currHurr !== 'HARVEY' && currHurr !== 'IRMA' && currHurr !== 'SANDY' && currHurr !== 'MARIA'){
+                clearMap();
+                return;
+              }
+              else{
+                clearMap();
+                displayHurr(currHurr);
+              }
+            }
+
+            let clearMap = function(){ //function to clear the map of all hurricane data
+              let map = document.getElementById('cvs');
+              while(document.getElementById('cvs').children[1] !== undefined){
+                document.getElementById('cvs').removeChild(document.getElementById('cvs').children[1]);
+              }
+            }
+
+            let displayHurr = function(name){ //function to draw the hurricane on the map
+              for(let i = 0; i < hurricaneData[name].length; i++){
+                let circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+                let lat = parseFloat(hurricaneData[name][i]['latitude']);
+                let long = parseFloat(hurricaneData[name][i]['longitude']);
+                let currLocation = ll2xy(lat, long);
+                let wind = hurricaneData[name][i]['windMax'];
+                let fill = 'lightcyan';
+
+                if(wind < 64){
+                  fill = 'lightcyan';
+                }
+                else if(wind >= 64 && wind < 82){
+                  fill = 'yellow';
+                }
+                else if(wind >= 82 && wind < 95){
+                  fill = 'goldenrod';
+                }
+                else if(wind >= 95 && wind < 112){
+                  fill = 'orange';
+                }
+                else if(wind >= 112 && wind < 136){
+                  fill = 'orangered';
+                }
+                else if(wind >= 136){
+                  fill = 'red';
+                }
+
+                let radius = 25;
+                if(hurricaneData[name][i]['radii34kt'][0] < 1){
+                 radius = 25;
+                }
+                else{
+                 radius = hurricaneData[name][i]['radii34kt'][0];
+                }
+
+                circle.setAttributeNS(null, 'cx', currLocation.x);
+                circle.setAttributeNS(null, 'cy', currLocation.y);
+                circle.setAttributeNS(null, 'r', radius*0.2);
+                circle.setAttributeNS(null, 'fill', fill);
+                circle.setAttributeNS(null, 'fill-opacity', 0.5);
+                circle.setAttributeNS(null, 'stroke-width', 1);
+                circle.setAttributeNS(null, 'stroke', 'black');
+                document.getElementById('cvs').appendChild(circle);
+
+              }
+
+            }
+
+            let sel = document.getElementById('selector'); //add event addEventListener to selector
+            sel.addEventListener('change', changeHurr);
+            let currHurr = null;
+
+        </script>
+    </body>
+</html>
