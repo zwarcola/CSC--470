@@ -68,13 +68,13 @@ Description: Project to map hurricane data using SVG elements
                 clearMap();
                 return;
               }
-              else{
+              else{ //if no hurricane is selected, clear the map
                 clearMap();
                 displayHurr(currHurr);
               }
             }
 
-            let clearMap = function(){ //function to clear the map of all hurricane data
+            let clearMap = function(){ //function to clear the map of all hurricane data/svg elements
               let map = document.getElementById('cvs');
               while(document.getElementById('cvs').children[1] !== undefined){
                 document.getElementById('cvs').removeChild(document.getElementById('cvs').children[1]);
@@ -90,7 +90,7 @@ Description: Project to map hurricane data using SVG elements
                 let wind = hurricaneData[name][i]['windMax'];
                 let fill = 'lightcyan';
 
-                if(wind < 64){
+                if(wind < 64){ //classify each circle based on wind speed
                   fill = 'lightcyan';
                 }
                 else if(wind >= 64 && wind < 82){
@@ -110,14 +110,14 @@ Description: Project to map hurricane data using SVG elements
                 }
 
                 let radius = 25;
-                if(hurricaneData[name][i]['radii34kt'][0] < 1){
+                if(hurricaneData[name][i]['radii34kt'][0] < 1){ //make default radius for negatively attributed radii
                  radius = 25;
                 }
                 else{
                  radius = hurricaneData[name][i]['radii34kt'][0];
                 }
 
-                circle.setAttributeNS(null, 'cx', currLocation.x);
+                circle.setAttributeNS(null, 'cx', currLocation.x); //apply all attributes and append to DOM
                 circle.setAttributeNS(null, 'cy', currLocation.y);
                 circle.setAttributeNS(null, 'r', radius*0.2);
                 circle.setAttributeNS(null, 'fill', fill);
