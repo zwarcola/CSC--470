@@ -90,26 +90,27 @@ Description: Project to map hurricane data using SVG elements
                   let wind = hurricaneData[name][i]['windMax'];
                   let fill = 'lightcyan';
 
-                  if(wind < 64){ //classify each circle based on wind speed
-                    fill = 'lightcyan';
+                  if(wind < 64){ //classify each circle based on wind speed.
+                    fill = 'lightcyan'; //less than 64 kts is below categoroy 1, these circles willl be light cyan
                   }
-                  else if(wind >= 64 && wind < 82){
+                  else if(wind >= 64 && wind < 82){ //category 1 will be yellow
                     fill = 'yellow';
                   }
-                  else if(wind >= 82 && wind < 95){
+                  else if(wind >= 82 && wind < 95){ //category 2 will be goldenrod
                     fill = 'goldenrod';
                   }
-                  else if(wind >= 95 && wind < 112){
+                  else if(wind >= 95 && wind < 112){ //category 3 will be orange
                     fill = 'orange';
                   }
-                  else if(wind >= 112 && wind < 136){
+                  else if(wind >= 112 && wind < 136){ //category 4 will be orangered
                     fill = 'orangered';
                   }
-                  else if(wind >= 136){
+                  else if(wind >= 136){ //category 5 will be red
                     fill = 'red';
                   }
 
                   let radius = 25;
+                  
                   if(hurricaneData[name][i]['radii34kt'][0] < 1){ //make default radius for negatively attributed radii
                    radius = 25;
                   }
@@ -133,7 +134,7 @@ Description: Project to map hurricane data using SVG elements
               let sel = document.getElementById('selector'); //add event addEventListener to selector
               sel.addEventListener('change', changeHurr);
               let currHurr = null;
-              
+
             })();
 
         </script>
