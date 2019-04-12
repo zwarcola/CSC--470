@@ -10,7 +10,7 @@ Description: Project to explore use of the canvas element
     <meta charset="utf-8">
     <title>Lab7</title>
       <div class="slidecontainer">
-        <input type="range" min="1" max="100" value="50" class="slider" id="myRange">
+        <input type="range" min="1" max="200" value="100" class="slider" id="slider">
       </div>
   </head>
 
@@ -61,7 +61,7 @@ Description: Project to explore use of the canvas element
               canvas.addEventListener('click',
                                       function(event){
                                         let currPos = getMousePos(canvas, event); //get coordinates of click event
-                                        drawStar(currPos.x, currPos.y, 50, 5, ctx);
+                                        drawStar(currPos.x, currPos.y, document.getElementById('slider').value, 5, ctx);
                                       }
               ); //add event listener to canvas
 
