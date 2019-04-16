@@ -9,15 +9,34 @@ Description: Project to explore use of the canvas element
   <head>
     <meta charset="utf-8">
     <title>Lab7</title>
-      <div class="slidecontainer">
-        <input type="range" min="1" max="200" value="100" class="slider" id="slider">
-      </div>
+      Use slider to adjust radius, enter a fill color, click canvas to draw a star.
+      <table>
+        <tr>
+        <td>Radius:</td>
+          <td><input type="range" min="1" max="200" value="100" id="slider"></td>
+        <tr>
+          <td>Red:</td>
+          <td><input id="R" type="range" value="0" min="0" max="255"></td>
+        </tr>
+        <tr>
+          <td>Green:</td>
+          <td><input id="G" type="range" value="0" min="0" max="255"></td>
+        </tr>
+        <tr>
+          <td>Blue:</td>
+          <td><input id="B" type="range" value="0" min="0" max="255"></td>
+        </tr>
+        <tr>
+          <td colspan='2'>Color: <span id="clr">rgb(0, 0, 0)</span></td>
+        </tr>
+      </table>
   </head>
 
   <canvas id="cvs" width="600"height="600" style="border:1px solid #000000;"> </canvas>
 
   <body>
       <script type="text/javascript">
+
             let starBuilder = (function(){ //iife function to hold our code
               const canvas = document.getElementById('cvs');
               const ctx = canvas.getContext('2d');
@@ -52,9 +71,12 @@ Description: Project to explore use of the canvas element
                   let y = (r*Math.sin(theta*(Math.PI/180)) + cy);
                   ctx.lineTo(x, y);
                 }
+
                 ctx.strokeStyle = '#000000';
-                ctx.stroke();
+                ctx.fillStyle = "rgb(" + red.value + ", " + green.value + ", " + blue.value + ")";
                 ctx.closePath();
+                ctx.fill();
+                ctx.stroke();
 
               }
 
@@ -64,6 +86,20 @@ Description: Project to explore use of the canvas element
                                         drawStar(currPos.x, currPos.y, document.getElementById('slider').value, 5, ctx);
                                       }
               ); //add event listener to canvas
+
+              let red = document.getElementById("R"); //get each range to a variable
+              let green = document.getElementById("G");
+              let blue = document.getElementById("B");
+
+              let updateColor = function(ev){ //function to update the background color and change Color text
+                document.getElementById('clr').innerHTML = "rgb(" + red.value + ", " + green.value + ", " + blue.value + ")";
+              }
+
+              //add event listener to each range and have the event handler be updateColor
+              red.addEventListener('mousemove', updateColor);
+              green.addEventListener('mousemove', updateColor);
+              blue.addEventListener('mousemove', updateColor);
+
 
             })();
       </script>
