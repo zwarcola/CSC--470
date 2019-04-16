@@ -72,6 +72,7 @@ Description: Project to explore use of the canvas element
                   ctx.lineTo(x, y);
                 }
 
+                //change various visual components and draw
                 ctx.strokeStyle = '#000000';
                 ctx.fillStyle = "rgb(" + red.value + ", " + green.value + ", " + blue.value + ")";
                 ctx.closePath();
@@ -91,7 +92,7 @@ Description: Project to explore use of the canvas element
               let green = document.getElementById("G");
               let blue = document.getElementById("B");
 
-              let updateColor = function(ev){ //function to update the background color and change Color text
+              let updateColor = function(ev){ //function to change Color text
                 document.getElementById('clr').innerHTML = "rgb(" + red.value + ", " + green.value + ", " + blue.value + ")";
               }
 
@@ -99,7 +100,6 @@ Description: Project to explore use of the canvas element
               red.addEventListener('mousemove', updateColor);
               green.addEventListener('mousemove', updateColor);
               blue.addEventListener('mousemove', updateColor);
-
 
             })();
       </script>
