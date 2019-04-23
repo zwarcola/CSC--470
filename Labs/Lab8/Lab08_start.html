@@ -1,13 +1,74 @@
+<!--
+File Name: Lab8.html
+Student Name: Zach Warcola
+Description: Lab to use javascript to use XMLHttpRequest to append HTML fragment files.
+-->
+
 <!doctype html>
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Lab08</title>
+    <title>Lab8</title>
   </head>
   <body>
     <script type="text/javascript">
-        // Your solution here
-        
+
+        let sources = ['p1.html', 'p2.html', 'p3.html']; //define initial sources
+
+        let usingCPS = function(){ //function using CPS and callback hell to append HTML files in order
+          let xhr = new XMLHttpRequest();
+          xhr.open('GET', sources[0]);
+          xhr.onload = function(fragment){
+            document.body.innerHTML += fragment.target.responseText;
+            xhr = new XMLHttpRequest();
+            xhr.open('GET', sources[1]);
+            xhr.onload = function(fragment){
+              document.body.innerHTML += fragment.target.responseText;
+              xhr = new XMLHttpRequest();
+              xhr.open('GET', sources[2])
+              xhr.onload = function(fragment){
+                document.body.innerHTML += fragment.target.responseText;
+                usingAsync(); //call usingAsync after usingCPS is complete
+              }
+              xhr.onerror = function(){return xhr.responseText;}
+              xhr.send();
+            }
+            xhr.onerror = function(){return xhr.responseText;}
+            xhr.send();
+          }
+          xhr.onerror = function(){return xhr.responseText;}
+          xhr.send();
+        }
+
+        let loadRequest = function(source){ //function to reject/resolve promise
+          return new Promise(function (resolve, reject) {
+              let xhr = new XMLHttpRequest();
+              xhr.open('GET', source);
+              xhr.onload = function () {
+                  let status = xhr.status;
+                  if(status == 200){ //status of 200 is successful
+                      resolve(xhr.response);
+                  }
+                  else{ //other status yields a reject
+                      reject(status);
+                      console.log(status);
+                  }
+              };
+              xhr.send();
+          });
+        }
+
+        let usingAsync = async function(){ //async await function to incrementally load the fragments in order
+          let fragment = await loadRequest(sources[0]);
+          document.body.innerHTML += fragment; //once fragment is loaded, append to document
+          fragment = await loadRequest(sources[1]);
+          document.body.innerHTML += fragment;
+          fragment = await loadRequest(sources[2]);
+          document.body.innerHTML += fragment;
+        }
+
+        usingCPS(); //call usingCPS function that also will invote usingAsync() when compelte
+
     </script>
   </body>
 </html>
