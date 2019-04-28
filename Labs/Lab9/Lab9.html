@@ -1,0 +1,68 @@
+<!--
+File Name: Lab9.html
+Student Name: Zach Warcola
+Description: Lab to explore the use of .map() and .reduce() by applying it to hurricane data
+-->
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+    </head>
+    <body>
+        <script type="text/javascript" src="hurricaneData.js"></script>
+        <script type="text/javascript">
+
+            let findLengths = (function(){ //iife function to hold our code
+              // https://www.movable-type.co.uk/scripts/latlong.html
+              // Extend Number object with methods to convert between degrees & radians
+              Number.prototype.toRadians = function() { return this * Math.PI / 180; };
+              Number.prototype.toDegrees = function() { return this * 180 / Math.PI; };
+
+              //Compute distance in meters using the spherical law of cosines formula.
+              //Divide meters by 1609.344 to compute miles
+              function distance(lat1, lon1, lat2, lon2) {
+                  var φ1 = lat1.toRadians(), φ2 = lat2.toRadians(), Δλ = (lon2-lon1).toRadians(), R = 6371e3;
+                  return Math.acos( Math.sin(φ1)*Math.sin(φ2) + Math.cos(φ1)*Math.cos(φ2) * Math.cos(Δλ) ) * R;
+              }
+
+              let currDistance = 0; //global distance value
+
+              let mapComponents = function(val){ //map hurricane object to just the latitude and longitude values
+
+                let newVal = [];
+                newVal.push(parseFloat(val['latitude']));
+                newVal.push(parseFloat(val['longitude']));
+
+                return newVal;
+              }
+
+              let reduceToLength = function(prev, val, idx , object){ //reduce function to compute lengths
+                currDistance += distance(prev[0], prev[1], val[0], val[1]);
+                return val;
+              }
+
+              let computeLength = function(hurricane){ //function to compute the length of a hurricane track using map/reduce
+
+                currDistance = 0;
+
+                let distanceInfo = hurricaneData[hurricane].map(mapComponents);
+                let reduced = distanceInfo.reduce(reduceToLength);
+
+                return (currDistance / 1609.344);
+              }
+
+
+              let finalValues = Object.keys(hurricaneData).map(function(key){ //call functions to organize in to final object
+                return {name: key, length: computeLength(key)};
+              });
+
+              console.log(finalValues);
+              let string = JSON.stringify(finalValues);
+              document.body.innerHTML += string;
+
+            })();
+
+        </script>
+    </body>
+</html>
