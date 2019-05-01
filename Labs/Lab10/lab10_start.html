@@ -1,0 +1,40 @@
+<!--
+File Name: Lab10.html
+Student Name: Zach Warcola
+Description: Lab to explore the use of image data in javascript by turning an image to greyscale
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Lab10</title>
+</head>
+<body>
+    <p><button id="go">Go</button></p>
+    <p><canvas id="cvs"></canvas></p>
+    <script type="text/javascript">
+
+
+        let canvas = document.getElementById('cvs'); //create canvas variables
+        let ctx = canvas.getContext('2d');
+
+        let draw = function(source){ //function to draw image based on source
+
+          let img = new Image();
+          img.src = source;
+
+          canvas.setAttribute('width', img.width); //apply canvas size based on image size
+          canvas.setAttribute('height', img.height);
+
+          img.onload = function(){
+              ctx.drawImage(img,0,0);
+          };
+
+        }
+
+        draw('tree.jpg');
+
+    </script>
+</body>
+</html>
