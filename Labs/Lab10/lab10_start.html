@@ -15,25 +15,41 @@ Description: Lab to explore the use of image data in javascript by turning an im
     <p><canvas id="cvs"></canvas></p>
     <script type="text/javascript">
 
+        let convertToGreyScale = (function(){ //iife function to hold our code
 
-        let canvas = document.getElementById('cvs'); //create canvas variables
-        let ctx = canvas.getContext('2d');
+          let canvas = document.getElementById('cvs'); //create canvas variables
+          let ctx = canvas.getContext('2d');
+          let button = document.getElementById('go');
 
-        let draw = function(source){ //function to draw image based on source
+          let worker = new Worker('greyscaleWorker.js'); //create webworker
 
-          let img = new Image();
-          img.src = source;
+          let draw = function(source){ //function to draw image based on source
 
-          canvas.setAttribute('width', img.width); //apply canvas size based on image size
-          canvas.setAttribute('height', img.height);
+            let img = new Image();
+            img.src = source;
 
-          img.onload = function(){
+            img.onload = function(){ //after the image is loaded, draw it to the canvas
+              canvas.setAttribute('width', img.width); //apply canvas size based on image size, this permits the program to work with any image
+              canvas.setAttribute('height', img.height);
+
               ctx.drawImage(img,0,0);
-          };
+            }
+          }
 
-        }
+          button.onmouseup = function(){ //add event listener to button
+            let imageData = ctx.getImageData(0, 0, canvas.width, canvas.height); //extract imageData
 
-        draw('tree.jpg');
+            worker.postMessage(imageData); //send data to worker
+
+            worker.onmessage = function(greyData){ //when message is returned, apply new image data to canvas
+              ctx.putImageData(greyData.data, 0, 0);
+            }
+
+          }
+
+          draw('tree.jpg'); //execute program with desired image source
+
+        })();
 
     </script>
 </body>
