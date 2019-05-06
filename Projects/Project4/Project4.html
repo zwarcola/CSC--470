@@ -46,9 +46,11 @@ Description: Project to handle heavy image processing calculations using multipl
 
             let loadImage = function(image){
               img.src = image; //draw default image
-              cvs.setAttribute('width', img.width);
-              cvs.setAttribute('height', img.height);
-              ctx.drawImage(img,0,0);
+              img.onload = function(){
+                cvs.setAttribute('width', img.width);
+                cvs.setAttribute('height', img.height);
+                ctx.drawImage(img,0,0);
+              }
             }
 
             loadImage(document.getElementById('imagep').value);
