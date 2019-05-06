@@ -1,21 +1,22 @@
-// process.js
+// medianWorker.js
 // Web Worker providing image processing functionality
 
 self.onmessage = function(workerObj) {
     // Start time
     let start = Date.now();
 
-    let newArr = median(workerObj.data.imageData.data, workerObj.data.x, workerObj.data.stripHeight);
+    let newArr = median(workerObj.data.imageData.data, workerObj.data.x, workerObj.data.stripHeight); //calculate new imageData
 
-    workerObj.data.imageData.data.set(newArr);
+    workerObj.data.imageData.data.set(newArr); //replace old imageData with new refined data
 
     // Calculate and add elapsed timepytho
     let elapsed = Date.now() - start;
 
-    // Post results...
+    // Post results
     self.postMessage({imageData: workerObj.data.imageData, x: workerObj.data.x, y: workerObj.data.y, stripHeight: workerObj.data.stripHeight, time: elapsed});
 };
 
+// Given median function to refine imageData
 // Apply the color median filter to the ImageData and replace data.
 // @param {Uint8ClampedArray} arr  array holding image data
 // @param {number}            w    Width of image to process

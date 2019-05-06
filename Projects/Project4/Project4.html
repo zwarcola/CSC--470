@@ -38,7 +38,7 @@ Description: Project to handle heavy image processing calculations using multipl
         <script type="text/javascript">
         (function(){ //IIFE Function to hold our code
 
-            let cvs     = document.getElementById("cvs");
+            let cvs     = document.getElementById("cvs"); //create references
             let ctx     = cvs.getContext('2d');
             let numWorkers = 1;
             let workers = [];
@@ -78,25 +78,29 @@ Description: Project to handle heavy image processing calculations using multipl
             }
 
             document.getElementById('bProcess').onmouseup = function(){ //event listener for process button, this will handle our webworker management
+
               let y = 0;
+              document.getElementById('out').innerHTML = '';
+              let stripHeight = Math.ceil(img.height / numWorkers); //create strip heights based on numWorkers
 
               for(let i = 0; i < numWorkers; i++){
 
-                let stripHeight = Math.ceil(img.height / numWorkers); //create strip heights based on numWorkers
-                let imageData = ctx.getImageData(0, y, cvs.width, stripHeight); //extract imageData
+                let imageData = ctx.getImageData(0, y, cvs.width, stripHeight + 2); //extract imageData
                 let workerObj = {imageData: imageData, x: img.width, y: y, stripHeight: stripHeight};
                 y += stripHeight;
 
-                let worker = new Worker('process_start.js'); //create webworker
+                let worker = new Worker('medianWorker.js'); //create webworker
                 worker.postMessage(workerObj); //send data to worker and add worker to workers array
                 workers.push(worker);
 
                 worker.onmessage = function(refinedObj){ //when message is returned, apply new image data to canvas
-                  ctx.putImageData(refinedObj.data.imageData, 0, refinedObj.data.y);
+                  ctx.putImageData(refinedObj.data.imageData, 0, refinedObj.data.y, 1, 1, refinedObj.data.x, refinedObj.data.stripHeight - 2); //put image data back to canvas with proper offset
                   document.getElementById('out').innerHTML += (' Worker ' + (i + 1) +' time: ' + refinedObj.data.time);
                   worker.terminate(); //terminate the worker when we have collected all neccesary data
                 }
+
               }
+
             }
 
         })();
