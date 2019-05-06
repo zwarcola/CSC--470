@@ -1,4 +1,8 @@
-//webworker script
+/*
+File Name: greyscaleWorker.js
+Student Name: Zach Warcola
+Description: Web Worker providing image -> greyScale processing 
+*/
 
 self.onmessage = function(imageData){
 
