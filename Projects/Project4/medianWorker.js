@@ -1,5 +1,8 @@
-// medianWorker.js
-// Web Worker providing image processing functionality
+/*
+File Name: medianWorker.js
+Student Name: Zach Warcola
+Description: Web Worker providing image processing functionality
+*/
 
 self.onmessage = function(workerObj) {
     // Start time
