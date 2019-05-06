@@ -20,7 +20,6 @@ Description: Lab to explore the use of image data in javascript by turning an im
           let canvas = document.getElementById('cvs'); //create canvas variables
           let ctx = canvas.getContext('2d');
           let button = document.getElementById('go');
-
           let worker = new Worker('greyscaleWorker.js'); //create webworker
 
           let draw = function(source){ //function to draw image based on source
