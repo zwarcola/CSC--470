@@ -10,7 +10,7 @@ There are two main folders in this repository, Labs and Projects. The Labs typic
 ```python
 python -m http.server
 ```
-This command will open the server on a indicated port where the user can then navigate to in their broswer. Once there, open the desired .html file and the program will work as intended.
+This command will open the server on an indicated port where the user can then navigate in their broswer. Once there, open the desired .html file and the program will work as intended.
 
 ## Contributors
 * **Zachary Warcola**
