@@ -1,28 +1,10 @@
-# SABRE-II Web App
+# CSC - 470: Advanced Browser Technologies
 
-Super Automated Bumpin' Request Engine or SABRE II is an interactive app allows users to create and organize music playlists based on user upvotes. Songs can be searched using the apple music API and they will be added to the queue. People can queue songs and upvote them. The most popular songs will be played first.  The Web App side (this one) is made for users to add songs to the queue whereas the mobile iOS app side is made to be the "DJ" and physically play the music through a speaker.
+In this course, I learned how to work with JavaScript and HTML. We focused on the basics of JS and gradually built up to more complicated projects. This repository contains the Labs and Projects assigned in this course.
 
-The mobile app side of the project can be found at https://github.com/skylermaxwell42/SABRE-II-Mobile
+## The Layout
 
-## How to use
-
-Visit https://www.sabreii.com in your web browser or download the mobile app onto your iOS enabled phone and start queuing and upvoting songs today
-
-## This Side Built With
-
-* Python3 - Backend computations and data management
-* Flask - Communication between backend and front end
-* HTML - Frontend management
-* CSS and [Bootstrap](https://getbootstrap.com) - For styling the frontend
-* Apple Music API - Search for songs to queue
-* [Domain.com](https://www.domain.com) - Domain hosting
-* [Heroku](https://www.domain.com) - Hosting the server
-* [MongoDB Atlas](https://www.mongodb.com/cloud/atlas) - Database to store song queue
-
+There are two main folders in this repository, Labs and Projects. The Labs typically contain smaller, basic tasks while the projects combine multiple JS/HTML functionalities in to single task. Each of the individual labs and projects have a .pdf assosciated with them. This .pdf has all the information on what the assignment at hand was. NOTE: Labs 8 and 10 and Project 4 are required to be opened with a server in order for them to work properly. To do this, I hosted an http server using python. The command in python3 is '''python -m http.server'''. This command will open the server on a indicated port where the user can then navigate to in their broswer. Once there, open the desired .html file and the program will work as intended.
 
 ## Contributors
-
-* **Jake Bezold** - *Frontend work*
-* **Matt Kilcher** - *Backend and database communication*
-* **Skyler Maxwell** - *Mobile App*
-* **Zachary Warcola** - *Backend and frontend communication*
+* **Zachary Warcola**
