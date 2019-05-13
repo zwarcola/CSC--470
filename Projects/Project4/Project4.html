@@ -96,7 +96,7 @@ Description: Project to handle heavy image processing calculations using multipl
                 workers.push(worker);
 
                 worker.onmessage = function(refinedObj){ //when message is returned, apply new image data to canvas
-                  ctx.putImageData(refinedObj.data.imageData, 0, refinedObj.data.y, 1, 1, refinedObj.data.x, refinedObj.data.stripHeight - 2); //put image data back to canvas with proper offset
+                  ctx.putImageData(refinedObj.data.imageData, 0, refinedObj.data.y, 1, 1, refinedObj.data.x, refinedObj.data.imageData.height - 2); //put image data back to canvas with proper offset
                   document.getElementById('out').innerHTML += (' Worker ' + (i + 1) +' time: ' + refinedObj.data.time);
                   worker.terminate(); //terminate the worker when we have collected all neccesary data
                 }

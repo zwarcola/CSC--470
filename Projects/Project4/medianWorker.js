@@ -8,7 +8,7 @@ self.onmessage = function(workerObj) {
     // Start time
     let start = Date.now();
 
-    let newArr = median(workerObj.data.imageData.data, workerObj.data.x, workerObj.data.stripHeight); //calculate new imageData
+    let newArr = median(workerObj.data.imageData.data, workerObj.data.x, workerObj.data.imageData.height); //calculate new imageData
 
     workerObj.data.imageData.data.set(newArr); //replace old imageData with new refined data
 
